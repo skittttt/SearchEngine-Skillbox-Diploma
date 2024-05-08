@@ -19,21 +19,21 @@ JSON. Применённые в проекте решения можно впо�
 
 ## Примеры файлов конфигурации
 ### config.json
-```
+```json
 {
-    "config":\
-&emsp;{\
-&emsp;&emsp;"name": "SkillboxSearchEngine",\
-&emsp;&emsp;"version": "0.1",\
-&emsp;&emsp;"max_responses": 5\
-&emsp;&emsp;},\
-    "files":\
-&emsp;&emsp;[\
-&emsp;&emsp;"../resources/file001.txt",\
-&emsp;&emsp;"../resources/file002.txt",\
-&emsp;&emsp;"../resources/file003.txt",\
-&emsp;&emsp;"../resources/file004.txt",\
-&emsp;]\
+    "config":
+    {
+    "name": "SkillboxSearchEngine",
+    "version": "0.1",
+    "max_responses": 5
+    },
+    "files":
+    [
+        "../resources/file001.txt",
+        "../resources/file002.txt",
+        "../resources/file003.txt",
+        "../resources/file004.txt",
+    ]
 }
 ```
 &emsp;config — общая информация\
@@ -47,16 +47,15 @@ JSON. Применённые в проекте решения можно впо�
 ### Файл с запросами requests.json.
 Cодержит запросы, которые необходимо обработать поисковому движку.\
 Пример описания файла requests.json:\
-```
-{\
-&emsp;"requests": [\
-&emsp;&emsp;"some words..",\
-&emsp;&emsp;"some words..",\
-&emsp;&emsp;"some words..",\
-&emsp;&emsp;"some words..",\
-&emsp;&emsp;…\
-&emsp;]\
-}\
+```json
+{
+"requests": [
+    "some words..",
+    "some words..",
+    "some words..",
+    "some words..",
+    ]
+}
 ```
 &emsp;“some words” — поисковый запрос, набор слов, разделённых одним или несколькими пробелами.
 По ним осуществляется поиск.
