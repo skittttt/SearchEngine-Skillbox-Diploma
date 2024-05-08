@@ -61,7 +61,7 @@ Cодержит запросы, которые необходимо обрабо
 По ним осуществляется поиск.
 
 ## Используемые технологии
-![GitHub author](https://img.shields.io/badge/C++-14-005199?style=for-the-badge)<br>
+![GitHub author](https://img.shields.io/badge/C++-20-005199?style=for-the-badge)<br>
 
 ![GitHub author](https://img.shields.io/badge/CMake-3.22-005199?style=for-the-badge)<br>
 https://cmake.org/<br>
