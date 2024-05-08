@@ -1,0 +1,11 @@
+# ninja log v5
+8	2703	7338714174796771	CMakeFiles/SearchEngine.dir/src/main.cpp.obj	e4b8bdfd9f74485e
+4	2900	7338714176767868	CMakeFiles/SearchEngine.dir/src/InvertedIndex.cpp.obj	300d4516e9549b36
+10	3548	7338714183216771	CMakeFiles/SearchEngine.dir/src/ConverterJSON.cpp.obj	a5e2c09ef18d3f05
+0	3892	7338714186619012	CMakeFiles/SearchEngine.dir/src/SearchServer.cpp.obj	2a0614e51448a26a
+3892	5389	7338714201624195	C:/Users/User/Desktop/SearchEngine-1-main/SearchEngine.exe	d3ebf2ff6689c01e
+19	2130	7351726221677992	CMakeFiles/SearchEngine.dir/src/main.cpp.obj	e4b8bdfd9f74485e
+15	2324	7351726223621670	CMakeFiles/SearchEngine.dir/src/InvertedIndex.cpp.obj	300d4516e9549b36
+11	3031	7351726230679351	CMakeFiles/SearchEngine.dir/src/ConverterJSON.cpp.obj	a5e2c09ef18d3f05
+3	3465	7351726235019107	CMakeFiles/SearchEngine.dir/src/SearchServer.cpp.obj	2a0614e51448a26a
+3465	5104	7351726251389465	C:/Users/User/Desktop/SearchEngine-1-main/SearchEngine.exe	d3ebf2ff6689c01e
