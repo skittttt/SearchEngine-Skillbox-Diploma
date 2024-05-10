@@ -6,6 +6,7 @@
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-.idea/
-cmake-build-debug/
+/.idea/
+/cmake-build-debug/
 SearchEngine.exe
+.idea/

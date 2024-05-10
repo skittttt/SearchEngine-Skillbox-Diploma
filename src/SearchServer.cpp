@@ -136,11 +136,17 @@ void SearchServer::calcResult() {
             _result.push_back({}); // ну запрос есть, но без результатов
         }
     }
-    std::ofstream os;
-    os.open("answers.json");
-    os << j.dump(3) << std::endl;
-    std::cout << j.dump(3);
-    os.close();
+    std::ofstream os("answers.json");
+    if(!os.is_open()){
+        std::cout << "Wrong Path or file doesn't exist!" << std::endl;
+    }
+    else{
+        os << j.dump(3) << std::endl;
+        std::cout << j.dump(3);
+        os.close();
+    }
+
+
 }
 
 
