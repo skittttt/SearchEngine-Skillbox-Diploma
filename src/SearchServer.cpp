@@ -1,9 +1,9 @@
-#include <iostream> // Подключаем библиотеку для ввода-вывода
-#include <map> // Подключаем библиотеку для использования контейнера map
-#include <set> // Подключаем библиотеку для использования контейнера set
-#include <fstream> // Подключаем библиотеку для работы с файлами
-#include "ConverterJSON.h" // Подключаем заголовочный файл для класса ConverterJSON
-#include "SearchServer.h" // Подключаем заголовочный файл для класса SearchServer
+#include <iostream>
+#include <map>
+#include <set>
+#include <fstream>
+#include "ConverterJSON.h"
+#include "SearchServer.h"
 
 
 // Функция для преобразования числа в строку с заданной точностью
@@ -48,7 +48,7 @@ std::vector<std::vector<RelativeIndex>> SearchServer::search(ConverterJSON conve
         _requests.push_back(wordsSplit(queries_input[i])); // Разделяем каждый запрос на слова и добавляем в вектор _requests
     }
     calcResult(); // Вычисляем результаты поиска
-    return _result; // Возвращаем результаты поиска
+    return _result;
 }
 
 // Функция для вычисления результатов поиска

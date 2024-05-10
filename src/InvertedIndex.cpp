@@ -1,8 +1,8 @@
-#include <fstream> // Подключаем библиотеку для работы с файлами
-#include <iostream> // Подключаем библиотеку для ввода-вывода
-#include <thread> // Подключаем библиотеку для работы с потоками
-#include <mutex> // Подключаем библиотеку для работы с мьютексами
-#include "InvertedIndex.h" // Подключаем заголовочный файл для класса InvertedIndex
+#include <fstream>
+#include <iostream>
+#include <thread>
+#include <mutex>
+#include "InvertedIndex.h"
 
 // Заведем набор мьютексов для безопасности доступа к внешним данным
 std::mutex entry_access;
@@ -13,12 +13,12 @@ std::mutex countDocs_access;
 // Разделяет строку на слова - разделитель "пробел" и считает повторы слов, если они есть
 // Результат в map<слово, количество повторов>
 std::map<std::string, int> InvertedIndex::wordsSplit(std::string str) {
-    std::map<std::string, int> words; // Создаем пустую map для хранения слов и их количества
+    std::map<std::string, int> words;
     if(str.back() != ' ') // Если последний символ строки не пробел, добавляем пробел в конец
         str +=" ";
-    int start = 0; // Начальный индекс слова в строке
-    int end = str.find(" "); // Находим первый пробел в строке
-    while (end != -1) { // Пока пробелы есть в строке
+    int start = 0;
+    int end = str.find(" ");
+    while (end != -1) {
         std::string word = str.substr(start, end - start); // Извлекаем слово из строки
         if (words.find(word) == words.end()) { // Если слова еще нет в map, добавляем его с количеством 1
             words[word] = 1;
@@ -26,21 +26,21 @@ std::map<std::string, int> InvertedIndex::wordsSplit(std::string str) {
             words[word] = ++words[word];
         }
         start = end + 1; // Перемещаем начальный индекс на следующий символ после пробела
-        end = str.find(" ", start); // Ищем следующий пробел
+        end = str.find(" ", start);
     }
-    return words; // Возвращаем map слов и их количества
+    return words;
 }
 
-// Конструктор класса InvertedIndex
+
 InvertedIndex::InvertedIndex() {}
 
 // Метод, который выполняется в отдельном потоке для обработки документа
 void InvertedIndex::threadExec(int iDoc) {
-    Entry entry; // Создаем пустую структуру Entry
+    Entry entry;
     // для подсчета повторов слов в документе
-    std::map<std::string, int> wordsCount; // Создаем пустую map для хранения слов и их количества
+    std::map<std::string, int> wordsCount;
     // по заданию надо заполнить структуру Entry - формируем map <слово ->  {doc_id, count}>;
-    std::map<std::string, Entry> entryCount; // Создаем пустую map для хранения слов и структур Entry
+    std::map<std::string, Entry> entryCount;
     // делим документ на слова, считаем их повторения и кладем в wordsCount
     wordsCount = wordsSplit(docs[iDoc]);
     // кладем номер документа как первый элемент в структуру Entry
@@ -48,43 +48,43 @@ void InvertedIndex::threadExec(int iDoc) {
     entry.doc_id = iDoc; // Устанавливаем номер документа
     entry_access.unlock(); // Разблокируем мьютекс
     // и надо еще иметь инфу сколько слов вообще в документе - для знаменателя в Rel relevance.
-    int tmpCount=0; // Инициализируем счетчик слов в документе
+    int tmpCount=0;
     // бежим по wordsCount
     for (auto it = wordsCount.begin(); it != wordsCount.end(); ++it){
-        entry_access.lock(); // Блокируем мьютекс для безопасного изменения структуры Entry
+        entry_access.lock();
         entry.count = it->second; // Устанавливаем количество повторов слова
-        entry_access.unlock(); // Разблокируем мьютекс
+        entry_access.unlock();
         entryCount[it->first] = entry; // Добавляем слово и структуру Entry в map entryCount
         tmpCount += it->second; // Увеличиваем счетчик слов в документе
     }
-    countDocs_access.lock(); // Блокируем мьютекс для безопасного изменения вектора countDocs
+    countDocs_access.lock();
     countDocs.push_back(tmpCount); // Добавляем количество слов в документе в вектор countDocs
-    countDocs_access.unlock(); // Разблокируем мьютекс
+    countDocs_access.unlock();
     // таким образом тут у нас по документу iDoc сформирован map<std::string, Entry> entryCount
     // теперь надо ДОБАВИТЬ в частотный словарь ( private переменная класса)
     // map<string, vector<Entry>> freq_dictionary посчитанный для iDoc entryCount
 
     for (auto it1 = entryCount.begin(); it1 != entryCount.end(); ++it1) {
-        std::vector<Entry> vEntry; // Создаем пустой вектор структур Entry
-        vEntry_access.lock(); // Блокируем мьютекс для безопасного изменения вектора vEntry
+        std::vector<Entry> vEntry;
+        vEntry_access.lock();
         vEntry.push_back(it1->second); // Добавляем структуру Entry в вектор vEntry
-        vEntry_access.unlock(); // Разблокируем мьютекс
-        freq_dictionary_access.lock(); // Блокируем мьютекс для безопасного изменения частотного словаря
+        vEntry_access.unlock();
+        freq_dictionary_access.lock();
         freq_dictionary[it1->first].push_back(it1->second); // Добавляем слово и структуру Entry в частотный словарь
-        freq_dictionary_access.unlock(); // Разблокируем мьютекс
+        freq_dictionary_access.unlock();
     }
 }
 
 // Метод для обновления частотного словаря
 void InvertedIndex::Update_docs() {
-    Entry entry; // Создаем пустую структуру Entry
-    std::vector<Entry> vEntry; // Создаем пустой вектор структур Entry
+    Entry entry;
+    std::vector<Entry> vEntry;
     std::vector<std::thread> threads; // Создаем вектор потоков
     for(int iDoc = 0; iDoc < docs.size(); ++iDoc) {
         threads.push_back(std::thread (&InvertedIndex::threadExec, this, iDoc)); // Создаем поток для обработки документа
     }
     // тут по всем документам пробежали и freq_dictionary заполнили
-    std::cout << "synchronizing all threads...\n"; // Выводим сообщение о синхронизации потоков
+    std::cout << "synchronizing all threads...\n";
     for (auto& th : threads) th.join(); // Ожидаем завершения всех потоков
 }
 

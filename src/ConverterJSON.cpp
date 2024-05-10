@@ -1,6 +1,6 @@
-#include <fstream> // Подключаем библиотеку для работы с файлами
-#include <iostream> // Подключаем библиотеку для ввода-вывода
-#include "ConverterJSON.h" // Подключаем заголовочный файл для класса ConverterJSON
+#include <fstream>
+#include <iostream>
+#include "ConverterJSON.h"
 
 // Определяем класс исключения для ситуации, когда файл конфигурации отсутствует
 class FileConfigDoesNotExist: public std::exception{
@@ -13,7 +13,7 @@ public:
 // Определяем класс исключения для ситуации, когда в файле конфигурации отсутствует поле "Config"
 class configFieldIsMissing:public  std::exception{
 public:
-    const char* what() const noexcept override{ //Переопределяем метод what для исключения
+    const char* what() const noexcept override{
         return "Field \"Config\" is missing.";
     }
 };
@@ -38,15 +38,15 @@ ConverterJSON::ConverterJSON(std::string config, std::string request) {
 
 // Метод, возвращающий лимит ответов
 int ConverterJSON::GetResponsesLimit() {
-    return conf.max_responses; // Возвращаем максимальное количество ответов из конфигурации
+    return conf.max_responses;
 }
 // Метод, возвращающий запросы
 std::vector<std::string> ConverterJSON::GetRequests() {
-    return conf.requests; // Возвращаем список запросов из конфигурации
+    return conf.requests;
 }
 // Метод, возвращающий текстовые документы
 std::vector<std::string> ConverterJSON::GetTextDocuments() {
-    return conf.files; // Возвращаем список файлов из конфигурации
+    return conf.files;
 }
 // Метод для чтения файла конфигурации
 void ConverterJSON::readConfigFile(std::string filePath) {
@@ -71,12 +71,11 @@ void ConverterJSON::readConfigFile(std::string filePath) {
             int i = 0;
         }
     }
-    readFrom.close(); // Закрываем файл конфигурации
+    readFrom.close();
     for(int i=0; i < conf.files.size(); ++i){
         // по условию надо указать что файла нет но программу не прерывать
-        std::ifstream readFrom(conf.files[i]); // Пытаемся открыть файл
+        std::ifstream readFrom(conf.files[i]);
         if(!readFrom.is_open()) {
-            std::cout << "Data file " << conf.files[i] << " is missing" << std::endl; // Выводим сообщение, если файл не открылся
-        }
+            std::cout << "Data file " << conf.files[i] << " is missing" << std::endl;
     }
 }
