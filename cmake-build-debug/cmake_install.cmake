@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/User/Desktop/SearchEngine-1-main
+# Install script for directory: C:/Users/User/Desktop/SearchEngine
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,17 +39,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/User/Desktop/SearchEngine-1-main/cmake-build-debug/tests/cmake_install.cmake")
+  include("C:/Users/User/Desktop/SearchEngine/cmake-build-debug/tests/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/User/Desktop/SearchEngine-1-main/cmake-build-debug/_deps/json-build/cmake_install.cmake")
+  include("C:/Users/User/Desktop/SearchEngine/cmake-build-debug/_deps/json-build/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("C:/Users/User/Desktop/SearchEngine-1-main/cmake-build-debug/_deps/googletest-build/cmake_install.cmake")
+  include("C:/Users/User/Desktop/SearchEngine/cmake-build-debug/_deps/googletest-build/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -60,5 +60,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/User/Desktop/SearchEngine-1-main/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/User/Desktop/SearchEngine/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

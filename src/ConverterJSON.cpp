@@ -30,9 +30,13 @@ ConverterJSON::ConverterJSON(std::string config, std::string request) {
     std::ifstream readFrom(request); // Открываем файл запросов для чтения
     std::vector<std::string> req;
     nlohmann::json j;
-    readFrom >> j; // Считываем JSON из файла запросов
-    for (auto const& val : j["requests"]){
-        conf.requests.push_back(val); // Добавляем запросы в конфигурацию
+    try {
+        readFrom >> j; // Считываем JSON из файла запросов
+        for (auto const &val: j["requests"]) {
+            conf.requests.push_back(val); // Добавляем запросы в конфигурацию
+        }
+    }catch (const std::exception& e){ // Ловим ошибку, если не получилось прочитать файл
+        std::cerr << "Error reading the JSON file: " << e.what() << std::endl;
     }
 }
 
@@ -51,31 +55,39 @@ std::vector<std::string> ConverterJSON::GetTextDocuments() {
 // Метод для чтения файла конфигурации
 void ConverterJSON::readConfigFile(std::string filePath) {
     std::ifstream readFrom(filePath.c_str()); // Открываем файл конфигурации для чтения
-    if(!readFrom.is_open()) {
+    if (!readFrom.is_open()) {
         throw FileConfigDoesNotExist(); // Если файл не открылся, выбрасываем исключение
     }
     nlohmann::json j;
-    readFrom >> j; // Считываем JSON из файла конфигурации
-    if (!j.contains("config")) {
-        throw configFieldIsMissing(); // Если в JSON отсутствует поле "config", выбрасываем исключение
-    }
-    conf.name = j["config"]["name"]; // Получаем имя из конфигурации
-    std::cout << "Search Engine " << conf.name << " is running" << std::endl; // Выводим сообщение о запуске движка
-    conf.version = j["config"]["version"]; // Получаем версию из конфигурации
-    std::cout << "Search Engine version is " << conf.version << std::endl; // Выводим сообщение о версии движка
-    conf.max_responses = j["config"]["max_responses"]; // Получаем максимальное количество ответов из конфигурации
-
-    if (j.find("files") != j.end()) {
-        for (auto const &val: j["files"]) {
-            conf.files.push_back(val); // Добавляем файлы в конфигурацию
-            int i = 0;
+    try{
+        readFrom >> j; // Считываем JSON из файла конфигурации
+        if (!j.contains("config")) {
+            throw configFieldIsMissing(); // Если в JSON отсутствует поле "config", выбрасываем исключение
         }
+        conf.name = j["config"]["name"]; // Получаем имя из конфигурации
+        std::cout << "Search Engine " << conf.name << " is running" << std::endl; // Выводим сообщение о запуске движка
+        conf.version = j["config"]["version"]; // Получаем версию из конфигурации
+        std::cout << "Search Engine version is " << conf.version << std::endl; // Выводим сообщение о версии движка
+        conf.max_responses = j["config"]["max_responses"]; // Получаем максимальное количество ответов из конфигурации
+
+        if (j.find("files") != j.end()) {
+            for (auto const &val: j["files"]) {
+                conf.files.push_back(val); // Добавляем файлы в конфигурацию
+                int i = 0;
+            }
+        }
+        readFrom.close();
     }
-    readFrom.close();
+    catch(const std::exception& e)
+    {
+        std::cerr << "Error reading the JSON file: " << e.what() << std::endl;
+    }
     for(int i=0; i < conf.files.size(); ++i){
         // по условию надо указать что файла нет но программу не прерывать
         std::ifstream readFrom(conf.files[i]);
         if(!readFrom.is_open()) {
             std::cout << "Data file " << conf.files[i] << " is missing" << std::endl;
+        }
     }
+
 }

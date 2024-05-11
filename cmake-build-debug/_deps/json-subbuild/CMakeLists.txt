@@ -14,8 +14,8 @@ project(json-populate NONE)
 include(ExternalProject)
 ExternalProject_Add(json-populate
                      "UPDATE_DISCONNECTED" "False" "DOWNLOAD_EXTRACT_TIMESTAMP" "FALSE" "URL" "https://github.com/nlohmann/json/releases/download/v3.11.2/json.tar.xz"
-                    SOURCE_DIR          "C:/Users/User/Desktop/SearchEngine-1-main/cmake-build-debug/_deps/json-src"
-                    BINARY_DIR          "C:/Users/User/Desktop/SearchEngine-1-main/cmake-build-debug/_deps/json-build"
+                    SOURCE_DIR          "C:/Users/User/Desktop/SearchEngine/cmake-build-debug/_deps/json-src"
+                    BINARY_DIR          "C:/Users/User/Desktop/SearchEngine/cmake-build-debug/_deps/json-build"
                     CONFIGURE_COMMAND   ""
                     BUILD_COMMAND       ""
                     INSTALL_COMMAND     ""

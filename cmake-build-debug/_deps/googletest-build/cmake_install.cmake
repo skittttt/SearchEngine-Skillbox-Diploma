@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/User/Desktop/SearchEngine-1-main/cmake-build-debug/_deps/googletest-src
+# Install script for directory: C:/Users/User/Desktop/SearchEngine/cmake-build-debug/_deps/googletest-src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("C:/Users/User/Desktop/SearchEngine-1-main/cmake-build-debug/_deps/googletest-build/googlemock/cmake_install.cmake")
+  include("C:/Users/User/Desktop/SearchEngine/cmake-build-debug/_deps/googletest-build/googlemock/cmake_install.cmake")
 
 endif()
 

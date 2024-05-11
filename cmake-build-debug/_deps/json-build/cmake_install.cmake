@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/User/Desktop/SearchEngine-1-main/cmake-build-debug/_deps/json-src
+# Install script for directory: C:/Users/User/Desktop/SearchEngine/cmake-build-debug/_deps/json-src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
